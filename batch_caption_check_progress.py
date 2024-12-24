@@ -30,6 +30,8 @@ if __name__ == "__main__":
                 file_response = client.files.content(res.output_file_id)
                 output_file = chunk_file.replace(".jsonl", "_response.jsonl")
                 if os.path.exists(output_file):
+                    response_filenames.append(output_file)
+                    print(f"Response already saved to {output_file}")
                     continue
 
                 with open(output_file, "w") as f:
@@ -51,5 +53,6 @@ if __name__ == "__main__":
     with open(output_file, "w") as fw:
         for response_file in response_filenames:
             with open(response_file, "r") as fr:
-                for line in f:
+                for line in fr:
                     fw.write(line)
+        print(f"Saved all responses to {output_file}")
